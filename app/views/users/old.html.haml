@@ -1,0 +1,23 @@
+- provide(:title, 'Sign up')
+%h1 Sign up
+.row
+  .col-md-6.col-md-offset-3
+    = form_for(@user) do |f|
+      = render 'shared/error_messages'
+      / This is what the label is called
+      = f.label :name1
+      / the x_field means, put x as the type and :symbol as the name attribute, it should match an attribute of the users.html.erb obj
+      = f.text_field :name
+      = f.text_field :name, class: 'form-control'
+      = f.label :email1
+      / The symbol email (:email) means that email is the attribute of user, so the input value should correspond to the email attribute
+      / The x_field means that email is the type, i think x_field are enumerated
+      = f.email_field :email
+      = f.email_field :email, class: 'form-control'
+      = f.label :password
+      = f.password_field :password
+      = f.password_field :password, class: 'form-control'
+      = f.label :password_confirmation, "Confirmation"
+      = f.password_field :password_confirmation
+      = f.password_field :password_confirmation, class: 'form-control'
+      = f.submit "Create my account", class: "btn btn-primary"

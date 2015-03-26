@@ -1,0 +1,12 @@
+-#Note that Listing 7.19 includes the CSS id error_explanation for use in styling the error messages.
+-#(Recall from Section 5.1.2 that CSS uses the pound sign # to style ids.)
+-#In addition, after an invalid submission Rails automatically wraps the fields with errors in divs with the CSS class field_with_errors.
+-#These labels then allow us to style the error messages with the SCSS shown in
+-#Listing 7.20, which makes use of Sass’s @extend function to include the functionality of the Bootstrap class has-error.
+- if @user.errors.any?
+  #error_explanation 
+    .alert.alert-danger
+      The form contains #{pluralize(@user.errors.count, "error")}.
+    %ul
+      - @user.errors.full_messages.each do |msg|
+        %li= msg

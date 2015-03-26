@@ -1,0 +1,14 @@
+- provide(:title, @user.name)
+/ <h1>
+/ <haml_loud> gravatar_for(@user) </haml_loud>
+/ <haml_loud> @user.name </haml_loud>
+/ <h2>
+/ <haml_loud> @user.email </haml_loud>
+/ </h2>
+/ </h1>
+.row
+  %aside.col-md-4
+    %section.user_info
+      %h1
+        = gravatar_for @user
+        = @user.name
