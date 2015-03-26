@@ -1,0 +1,56 @@
+514	 cd sample_app/
+515	 ls
+516	 vim Gemfile
+517	 bundle install
+
+In Listing 3.4, note that we have passed the controller name as CamelCase, which leads to the creation of a controller file written in snake case, so that a controller called StaticPages yields a file called static_pages_controller.rb. This is merely a convention, and in fact using snake case at the command line also works: the command
+
+$ rails generate controller static_pages ...
+also generates a controller called static_pages_controller.rb. Because Ruby uses CamelCase for class names (Section 4.4), my preference is to refer to controllers using their CamelCase names, but this is a matter of taste. (Since Ruby filenames typically use snake case, the Rails generator converts CamelCase to snake case using the underscore method.)
+
+By the way, if you ever make a mistake when generating code, it’s useful to know how to reverse the process. See Box 3.1 for some techniques on how to undo things in Rails.
+
+So because you've generated the static controller and then had the generator also generate static pages then you will see that there is a get method setup in the controller that maps also to pre-generated views. If you go to those pages in the browser: localhost:3000/static_pages/home, you will see the output: Find me in app/views/static_pages/home.html.erb (this is written into that static file).
+
+So for the last thing that happens in this section (other than adding the about page which i wrote hand written notes on), is the modification of the erb (embedded ruby - basically adding some embedded ruby to the template pages).
+
+<% provide(:title, "Home") %>
+indicates using <% ... %> that Rails should call the provide function and associate the string "Home" with the label :title.14 Then, in the title, we use the closely related notation <%= ... %> to insert the title into the template using Ruby’s yield function:15
+
+<title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
+(The distinction between the two types of embedded Ruby is that <% ... %> executes the code inside, while <%= ... %> executes it and inserts the result into the template.) The resulting page is exactly the same as before, only now the variable part of the title is generated dynamically by ERb.
+
+So the application controller (application.html.erb in layouts) looks like this:
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
+    <%= stylesheet_link_tag    'application', media: 'all',
+                                              'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+and each of the pages has a special <% provide(:title, "Home") %> tag at the top above all the html
+
+Then things get routed... so it wants you to change things: 
+from get 'static_pages/home' to 
+
+root 'static_pages#home'
+
+This changes the URL static_pages/home to the controller/action pair static_pages#home, which ensures that GET requests for / get routed to the home action in the Static Pages controller. The resulting routes file is shown in Figure 3.7. (Note that, with the code in Listing 3.37, the previous route static_pages/home will no longer work.) 
+
+------------------------------
+Conclusion
+------------------------------
+
+The rails script generates a new controller with rails generate controller ControllerName <optional action names>.
+New routes are defined in the file config/routes.rb.
+Rails views can contain static HTML or embedded Ruby (ERb).
+Automated testing allows us to write test suites that drive the development of new features, allow for confident refactoring, and catch regressions.
+Test-driven development uses a “Red, Green, Refactor” cycle.
+Rails layouts allow the use of a common template for pages in our application, thereby eliminating duplication.
