@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
     @user = User.find(params[:id])
     # debugger
   end
+
 end
