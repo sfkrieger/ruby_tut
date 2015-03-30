@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params) #why do we have to save this to an attribute?? why can't it just be a local var?
     if @user.save #if this action is successful and returns
       flash[:success] = "Well this is pretty weird..."
+      log_in @user
       # redirect_to(user_url) this didn't work remember, its because you need to pass a parameter to user_url
       redirect_to(@user)
     else
