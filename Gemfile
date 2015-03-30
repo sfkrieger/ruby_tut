@@ -12,6 +12,9 @@ gem 'jbuilder',             '2.2.3'
 gem 'sdoc',                 '0.4.0', group: :doc
 gem 'haml-rails'
 gem 'html2haml'
+gem 'faker',                '1.4.2'
+gem 'will_paginate',           '3.0.7'
+gem 'bootstrap-will_paginate', '0.0.10'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in(user)
       remember(user)
-      redirect_to(user)
+      redirect_back_or user
+
     else
       # what is this thing?? like it gets saved in the sessions controller
       # but how do you descriminate between @flash and flash (@user and user... and what is accessible where -
@@ -20,7 +21,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out if logged_in?
+    logout if logged_in?
     redirect_to root_url
   end
 end

@@ -1,4 +1,7 @@
-%h1 Users:
-%p.center
-  - @all_users.each do |user|
-    = user
+- provide(:title, 'All Users')
+%h1 All dem Loozers
+%ul.users
+  - will_paginate
+  - @users.each do |user|
+    = render user
+  - will_paginate
