@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def show
     # //but you don't need to do this... because its not done in the other ones... its passed implicity...?
     @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new
@@ -61,14 +62,6 @@ class UsersController < ApplicationController
       # I think this means that you require the user as the paramter and the fields you're allowing within
       # That user obj are the name, email, password and password confirmation
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
     end
 
     def correct_user
